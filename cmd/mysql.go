@@ -111,7 +111,7 @@ order by c.ORDINAL_POSITION asc`, dbName, tbName, dbName, tbName)
 
 func GetPriIndex(session *sql.DB, dbName, tbName string) (*proto.Index, error) {
 	cmd := fmt.Sprintf(`select si.TYPE, si.PAGE_NO, sf.NAME
-from information_schema.INNODB_SYS_INDEXES si join information_schema.INNODB_SYS_FIELDS sf
+from information_schema.INNODB_SYS_INDEXES si left join information_schema.INNODB_SYS_FIELDS sf
 on si.INDEX_ID=sf.INDEX_ID
 where si.TABLE_ID in (select TABLE_ID from information_schema.INNODB_SYS_TABLES where NAME='%v/%v')
 and si.TYPE in (1, 3)
@@ -125,13 +125,19 @@ order by sf.POS ASC`, dbName, tbName)
 	var fieldNames []string
 	for rows.Next() {
 		var t, p uint32
-		var name string
+		var name interface{}
 		if e := rows.Scan(&t, &p, &name); e != nil {
 			return nil, e
 		}
+		if name != nil {
+			fieldNames = append(fieldNames, name.(string))
+		} else {
+			//自动生成的row_id主键
+			fieldNames = append(fieldNames, "rowid")
+		}
 		typ = t
 		pageNo = p
-		fieldNames = append(fieldNames, name)
+		//fieldNames = append(fieldNames, name)
 	}
 	if typ == 0 || pageNo == 0 {
 		return nil, errors.New("not find")
