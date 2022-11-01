@@ -157,7 +157,7 @@ from information_schema.INNODB_SYS_INDEXES si join information_schema.INNODB_SYS
 on si.INDEX_ID=sf.INDEX_ID
 where si.TABLE_ID in (select TABLE_ID from information_schema.INNODB_SYS_TABLES where NAME='%v/%v')
 and si.TYPE not in (1, 3)
-order by sf.POS ASC`, dbName, tbName)
+order by sf.INDEX_ID ASC,sf.POS ASC`, dbName, tbName)
 
 	rows, e := session.Query(cmd)
 	if e != nil {
