@@ -4,8 +4,6 @@ import (
 	"parseibd/proto"
 )
 
-//TODO：测试blob存储多个page
-
 //读取PageIndex
 //参数：
 //		path：ibd文件路径
