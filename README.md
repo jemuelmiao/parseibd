@@ -80,6 +80,7 @@ segments：所有page inode管理的segment列表及segment管理的extent列表
 ### TODO
 
 - 解析数据字典、frm文件，去掉连接mysql读取元数据的依赖
+- 部分不常用的数据类型解析，如point、geometry等
 - 前端可视化展示结果
 
 ### 相关阅读
