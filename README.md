@@ -41,41 +41,41 @@ segments：所有page inode管理的segment列表及segment管理的extent列表
 ### 示例
 表结构
 
-![image](https://user-images.githubusercontent.com/28854032/199264218-0361c68e-3f1e-44e2-8393-71a99d367c22.png)
+![image](https://user-images.githubusercontent.com/28854032/199284381-90e75dab-838b-4786-98fe-871e79b1a9d5.png)
 
 输出结果文件
 
 - btree_card_id
 
-![image](https://user-images.githubusercontent.com/28854032/199232479-2a41650d-8d6e-4878-a7a7-e88ffde6c671.png)
+![image](https://user-images.githubusercontent.com/28854032/199284776-cf58c3a2-8937-479c-b4af-389b11ac20c5.png)
 
 - btree_id
 
-![image](https://user-images.githubusercontent.com/28854032/199257672-e30e6f04-752c-4387-9014-8a7ee263fef3.png)
+![image](https://user-images.githubusercontent.com/28854032/199284848-9b72b573-dd73-4537-9172-c65c784d521b.png)
 
 - extents
 
-![image](https://user-images.githubusercontent.com/28854032/199257930-eb94cf7e-e941-47f6-ab5b-6cd6faed1ef5.png)
+![image](https://user-images.githubusercontent.com/28854032/199284933-6c6b858e-c302-49b1-9400-e0f6a1086013.png)
 
 - inodes
 
-![image](https://user-images.githubusercontent.com/28854032/199258039-78304f04-39d7-4517-99a3-5c71983732e3.png)
+![image](https://user-images.githubusercontent.com/28854032/199285001-44320e88-e887-4c48-b4cd-08d5c786f337.png)
 
 - pages
 
-![image](https://user-images.githubusercontent.com/28854032/199258116-53c982e8-f7d3-43e9-9ee8-841beed85697.png)
+![image](https://user-images.githubusercontent.com/28854032/199285070-cf147f5f-506f-44dd-b59d-1fe0c109c4b1.png)
 
 - rec_card_id
 
-![image](https://user-images.githubusercontent.com/28854032/199258241-bbfae17c-5fe1-470d-8c38-c7484da316b0.png)
+![image](https://user-images.githubusercontent.com/28854032/199285199-e2078851-2ced-46cf-8ed0-606bb643ef77.png)
 
 - rec_id
 
-![image](https://user-images.githubusercontent.com/28854032/199258323-a204fe3b-73ed-4c14-87a8-79b22f8f4f5b.png)
+![image](https://user-images.githubusercontent.com/28854032/199285268-f6f5b60a-681c-4169-be72-f198b45c2dc2.png)
 
 - segments
 
-![image](https://user-images.githubusercontent.com/28854032/199258503-6bc630d6-0dcf-432a-86f5-0f9c2f356725.png)
+![image](https://user-images.githubusercontent.com/28854032/199285339-6d852ab3-0e76-4ce5-9565-bb29348e52db.png)
 
 ### TODO
 
