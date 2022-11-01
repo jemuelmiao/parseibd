@@ -41,7 +41,7 @@ segments：所有page inode管理的segment列表及segment管理的extent列表
 ### 示例
 表结构
 
-![image](https://user-images.githubusercontent.com/28854032/199232299-474d0cbf-b31a-4eeb-b30a-5d3861d0a0ee.png)
+![image](https://user-images.githubusercontent.com/28854032/199264218-0361c68e-3f1e-44e2-8393-71a99d367c22.png)
 
 输出结果文件
 
