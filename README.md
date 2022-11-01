@@ -20,7 +20,7 @@ page：页
 
 `cd cmd`
 
-`./parseibd`
+`./parseibd -h {mysql地址} -u {用户名} -p {密码} -d {数据库名} -t {表名} -f {ibd文件路径}`
 
 ### 输出文件说明
 结果文件存放在output目录中
@@ -36,6 +36,17 @@ pages：所有page的编号、类型
 rec_xxx：索引记录，包括：聚簇索引非叶子记录、聚簇索引叶子记录、二级索引非叶子记录、二级索引叶子记录
 
 segments：所有page inode管理的segment列表及segment管理的extent列表
+
+### 示例
+表结构
+
+![image](https://user-images.githubusercontent.com/28854032/199232299-474d0cbf-b31a-4eeb-b30a-5d3861d0a0ee.png)
+
+输出结果文件
+
+btree_card_id
+![image](https://user-images.githubusercontent.com/28854032/199232479-2a41650d-8d6e-4878-a7a7-e88ffde6c671.png)
+
 
 ### 相关阅读
 http://www.miaozhouguang.com/
