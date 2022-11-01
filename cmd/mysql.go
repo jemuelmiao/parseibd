@@ -6,6 +6,7 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"parseibd/proto"
+	"strings"
 )
 
 type TableInfo struct {
@@ -45,8 +46,8 @@ where t.TABLE_SCHEMA='%v' and t.TABLE_NAME='%v'`, dbName, tbName)
 			return nil, e
 		}
 		tableInfo := &TableInfo{
-			RowFormat: rowFormat,
-			Charset:   charset,
+			RowFormat: strings.ToLower(rowFormat),
+			Charset:   strings.ToLower(charset),
 		}
 		return tableInfo, nil
 	}
@@ -130,7 +131,7 @@ order by sf.POS ASC`, dbName, tbName)
 			return nil, e
 		}
 		if name != nil {
-			fieldNames = append(fieldNames, name.(string))
+			fieldNames = append(fieldNames, string(name.([]uint8)))
 		} else {
 			//自动生成的row_id主键
 			fieldNames = append(fieldNames, "rowid")

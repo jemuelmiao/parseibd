@@ -115,17 +115,20 @@ func ReadUserRecordPriLeaf(buff []byte, path string, dataOffset uint64, isComp b
 	//null标志
 	fieldNull := make(map[string]bool)
 	if isComp {
+		//只有not null的字段才算到null标志中
+		var nullNames []string
 		var nullable uint64
 		for _, field := range fields {
 			if IsNullable(field.Prtype) {
+				nullNames = append(nullNames, field.Name)
 				nullable++
 			}
 		}
 		byteCount := (nullable+7) >> 3
 		if byteCount > 0 {
-			for i, field := range fields {
-				val := buff[headOffset-uint64(1-i/8)] >> (i%8)
-				fieldNull[field.Name] = (val & 0x01) != 0
+			for i, name := range nullNames {
+				val := buff[headOffset-uint64(1+i/8)] >> (i%8)
+				fieldNull[name] = (val & 0x01) != 0
 			}
 		}
 		headOffset -= byteCount
@@ -252,19 +255,21 @@ func ReadUserRecordSecNonleaf(buff []byte, path string, dataOffset uint64, isCom
 	//null标志
 	fieldNull := make(map[string]bool)
 	if isComp {
+		//只有not null的字段才算到null标志中
+		var nullNames []string
 		var nullable uint64
 		for _, name := range secIndex.FieldNames {
 			field := fieldMap[name]
 			if IsNullable(field.Prtype) {
+				nullNames = append(nullNames, name)
 				nullable++
 			}
 		}
 		byteCount := (nullable+7) >> 3
 		if byteCount > 0 {
-			for i, name := range secIndex.FieldNames {
-				field := fieldMap[name]
-				val := buff[headOffset-uint64(1-i/8)] >> (i%8)
-				fieldNull[field.Name] = (val & 0x01) != 0
+			for i, name := range nullNames {
+				val := buff[headOffset-uint64(1+i/8)] >> (i%8)
+				fieldNull[name] = (val & 0x01) != 0
 			}
 		}
 		headOffset -= byteCount
@@ -368,19 +373,21 @@ func ReadUserRecordSecLeaf(buff []byte, path string, dataOffset uint64, isComp b
 	//null标志
 	fieldNull := make(map[string]bool)
 	if isComp {
+		//只有not null的字段才算到null标志中
+		var nullNames []string
 		var nullable uint64
 		for _, name := range secIndex.FieldNames {
 			field := fieldMap[name]
 			if IsNullable(field.Prtype) {
+				nullNames = append(nullNames, name)
 				nullable++
 			}
 		}
 		byteCount := (nullable+7) >> 3
 		if byteCount > 0 {
-			for i, name := range secIndex.FieldNames {
-				field := fieldMap[name]
-				val := buff[headOffset-uint64(1-i/8)] >> (i%8)
-				fieldNull[field.Name] = (val & 0x01) != 0
+			for i, name := range nullNames {
+				val := buff[headOffset-uint64(1+i/8)] >> (i%8)
+				fieldNull[name] = (val & 0x01) != 0
 			}
 		}
 		headOffset -= byteCount
@@ -543,7 +550,7 @@ func readFieldValuesNew(buff []byte, path string, fnames []string, fields []*pro
 					useExternal = (buff[headOffset-1] & 0x40) != 0
 					//使用两个字节
 					var bt []byte
-					bt = append(bt, buff[headOffset-1] ^ 0xC0)
+					bt = append(bt, buff[headOffset-1] & 0x3F)
 					bt = append(bt, buff[headOffset-2])
 					dataLen = MachReadFrom2(bt)
 					headOffset -= 2
@@ -1008,7 +1015,7 @@ func readString(buff []byte, path string, field *proto.Field, dataOffset uint64,
 	if useExternal {
 		//使用外部页存储
 		var externPtr *proto.ExternPtr
-		switch rowFormat {
+		switch strings.ToLower(rowFormat) {
 		case RowFormatDynamic, RowFormatCompressed:
 			Assert(dataLen == 20)
 			externPtr, _ = ReadExternPtr(buff[dataOffset:])

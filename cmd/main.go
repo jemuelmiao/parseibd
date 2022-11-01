@@ -7,6 +7,7 @@ import (
 	"parseibd"
 	"parseibd/parser"
 	"parseibd/proto"
+	"strings"
 )
 
 var host = flag.String("h", "127.0.0.1:3306", "MySQL地址，格式：127.0.0.1:3306")
@@ -59,9 +60,9 @@ func main() {
 	indexes = append(indexes, secIndexes...)
 	for _, currIndex := range indexes {
 		parseibd.ShowBtree(*path, uint64(currIndex.PageNo), fields, currIndex, priIndex,
-			tableInfo.Charset, *inputCharset, tableInfo.RowFormat)
+			tableInfo.Charset, strings.ToLower(*inputCharset), strings.ToLower(tableInfo.RowFormat))
 		parseibd.ShowRecs(*path, uint64(currIndex.PageNo), fields, currIndex, priIndex,
-			tableInfo.Charset, *inputCharset, tableInfo.RowFormat)
+			tableInfo.Charset, strings.ToLower(*inputCharset), strings.ToLower(tableInfo.RowFormat))
 	}
 	parseibd.ShowExtents(*path)
 	parseibd.ShowInodes(*path)

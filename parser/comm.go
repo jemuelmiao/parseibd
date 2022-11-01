@@ -8,6 +8,7 @@ import (
 	"os"
 	"parseibd/proto"
 	"strconv"
+	"strings"
 	"unsafe"
 
 	"golang.org/x/text/encoding/simplifiedchinese"
@@ -66,6 +67,7 @@ func MachReadFrom7(buff []byte) uint64 {
 func MachReadFrom8(buff []byte) uint64 {
 	return MachReadFromN(buff, 8)
 }
+//大端序：[高位 低位]
 func MachReadFromN(buff []byte, n int) uint64 {
 	var r uint64
 	m := 0
@@ -204,7 +206,7 @@ func GetRecordType(status int) string {
 }
 
 func GetMaxBytesPerChar(charset string) int {
-	switch charset {
+	switch strings.ToLower(charset) {
 	case CharsetBig5:
 		return 2
 	case CharsetDec8:
@@ -313,7 +315,9 @@ func GbkToUtf8(s []byte) ([]byte, error) {
 func Assert(expr bool) {
 	if !expr {
 		fmt.Println("assert fail")
-		os.Exit(1)
+		var dummy *int
+		*dummy = 1
+		//os.Exit(1)
 	}
 }
 
