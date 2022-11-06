@@ -84,4 +84,4 @@ segments：所有page inode管理的segment列表及segment管理的extent列表
 - 前端可视化展示结果
 
 ### 相关阅读
-http://www.miaozhouguang.com/
+http://www.miaozhouguang.com/?p=261
